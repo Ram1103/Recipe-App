@@ -10,16 +10,26 @@ function Popular() {
     getPopular();
   },[]);
   const getPopular = async () => {
-    const api = await fetch(
-      'https://api.spoonacular.com/recipes/random?apiKey=792cf92be28e47a1a1cc109362dfdb20&number=9'
-      );
-    const data = await api.json();
-    SetPopular(data.recipes)
-  }
+    
+    const check = localStorage.getItem('popular');
+    if(check){
+      SetPopular(JSON.parse(check));
+    } else{
+      const api = await fetch(
+        'https://api.spoonacular.com/recipes/random?apiKey=792cf92be28e47a1a1cc109362dfdb20&number=9'
+        );
+      const data = await api.json();
+      localStorage.setItem("popular",JSON.stringify(data.recipes));
+      SetPopular(data.recipes); 
+      console.log(data.recipes);
+    }
+  };
+
+
+
+    
   return (
-    <div>
-      
-        
+    <div>       
           <Wrapper>
             <h3>Popular Picks</h3>
             <Splide options={{
@@ -27,7 +37,7 @@ function Popular() {
               arrows: false,
               pagination: false,
               drag: "free",
-              gap:"5rem",
+              gap:"2rem",
             }}>
             {
               popular.map((recipe)=> {
@@ -42,9 +52,7 @@ function Popular() {
                 )
               })
             }</Splide>
-          </Wrapper>
-        
-    
+          </Wrapper>    
     </div>
   )
 }
@@ -54,8 +62,8 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
   min-height: 25rem;
-  overflow: hidden;
   border-radius :2rem;
+  overflow: hidden;  
   position: relative;
 
 img{
@@ -69,29 +77,29 @@ img{
 p{
   position: absolute;
   z-index 10;
-  left: 55%;
+  left: 50%;
   bottom=0%;
-  transform: translate(-50%,0%);
+  transform: translate(-50% ,0%);
   color: white;
   width: 100%;
-  text-align:center;
-  
+  text-align: center;
   font-weight: 600;
   font-size: 1rem;
-  height: 100%;
-  display:flex;
-  justify-context:center;
-  align-items:center;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 `;
 
 const Gradient= styled.div`
-  z-index 10;
+  z-index: 3;
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: absolute;
   background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.5));
 `
+
 
 
 
