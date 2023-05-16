@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 
-
+//NavLink to={'/cuisine/Italian'}
 
 function Category() {
   return (

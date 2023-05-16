@@ -1,13 +1,16 @@
-import Veggie from "../components/Veggie"
-import Popular from "../components/Popular"
+import Home from "./Home";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Cuisine from "./Cuisine";
 
 function Pages() {
-  return (
-    <div>
-        <Veggie />
-        <Popular />
-    </div>
-  )
+  return (    
+      <Routes>
+        <Route path="/"  element={<Home/>} />;
+        <Route path="/cuisine"  element={<Cuisine/>} />
+      </Routes>
+    
+  );
 }
 
 export default Pages
